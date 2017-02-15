@@ -158,7 +158,7 @@ public class OrderStatusController extends OrderMenuAbstractController implement
     public void handlePackingOrderAction() {
         try {
             Stage stage = (Stage) tableView.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(LoadFXML.getInstance().getPath("packingMenu"))));
+            stage.setScene(new Scene(FXMLLoader.load(LoadFXML.getInstance().getPath("packingMenu-" + Cookie.getInstance().get("rank")))));
         } catch (IOException e) {
             AlertBox.getInstance().display(getClass().getSimpleName(), "Some problems by loading packingMenu.fxml");
             e.printStackTrace();
@@ -169,7 +169,7 @@ public class OrderStatusController extends OrderMenuAbstractController implement
     public void handlePickingOrderAction() {
         try {
             Stage stage = (Stage) tableView.getScene().getWindow();
-            stage.setScene(new Scene(FXMLLoader.load(LoadFXML.getInstance().getPath("pickingMenu"))));
+            stage.setScene(new Scene(FXMLLoader.load(LoadFXML.getInstance().getPath("pickingMenu-" + Cookie.getInstance().get("rank")))));
         } catch (IOException e) {
             AlertBox.getInstance().display(getClass().getSimpleName(), "Some problems by loading pickingMenu.fxml");
             e.printStackTrace();
