@@ -6,6 +6,7 @@
 package com.warehouse.utility;
 
 import com.warehouse.entity.PalleteInfo;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,7 +49,7 @@ public class Validate {
     }
     
     // This function get info from 1(5) when first is item_id and the last one is amout of the product
-    public static ArrayList<PalleteInfo> getPalleteInformations(String phrase){
+    public static ArrayList<PalleteInfo> getPalleteInformations(String phrase) throws IOException{
         ArrayList<PalleteInfo> result = new ArrayList<>();
 		
         if(phrase != null){
