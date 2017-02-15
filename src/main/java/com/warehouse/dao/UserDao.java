@@ -5,15 +5,14 @@
  */
 package com.warehouse.dao;
 
-import java.net.ConnectException;
-import org.hibernate.exception.GenericJDBCException;
-
 /**
  *
  * @author pawel_000
  */
 public interface UserDao {
-    public boolean find(String name, String password) throws GenericJDBCException;
+    public boolean find(String name, String password);
     
-    public String getUserNameById(int id) ;
+    public String getUserNameById(int id);
+    
+    public String getUserRank(String login, String password);
 }

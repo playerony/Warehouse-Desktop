@@ -1,11 +1,11 @@
 package com.warehouse.controller;
 
+import com.warehouse.cookie.Cookie;
 import com.warehouse.dao.UserDao;
 import com.warehouse.impl.UserDaoImpl;
 import com.warehouse.loader.LoadFXML;
 import com.warehouse.utility.AlertBox;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -30,10 +30,11 @@ public class LoginPanelController implements Initializable{
     
     public void handleButtonClick() {
         try{
-            if(userDao.find(loginField.getText(), passwordField.getText())){
+            if(userDao.find(loginField.getText(), passwordField.getText()) ){
                 Stage stage = (Stage) loginField.getScene().getWindow();
                 stage.close();
 
+                Cookie.getInstance().add("rank", userDao.getUserRank(loginField.getText(), passwordField.getText()));
                 LoadFXML.getInstance().loadFile("checkOrderNumber");
             }else
                 AlertBox.getInstance().display(getClass().getSimpleName(), "Wrong login or password");
