@@ -55,7 +55,15 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void deleteUser(User user) throws IOException {
-        UserService.delete(user, sessionFactory);
+    public boolean deleteUser(User user) throws IOException {
+        for(User u : UserService.list(sessionFactory))
+            if(u.getLogin().equals(user.getLogin()) && u.getPassword().equals(user.getPassword()) &&
+                u.getFirstname().equals(user.getFirstname()) && u.getLastname().equals(user.getLastname()))
+            {
+                    UserService.delete(u, sessionFactory);
+                    return true;
+            }
+        
+        return false;
     }
 }
