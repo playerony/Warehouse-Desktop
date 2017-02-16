@@ -21,5 +21,5 @@ public interface UserDao {
     
     public void addUser(User user) throws IOException;
     
-    public void deleteUser(User user) throws IOException;
+    public boolean deleteUser(User user) throws IOException;
 }
