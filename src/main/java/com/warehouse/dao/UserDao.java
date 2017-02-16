@@ -5,6 +5,9 @@
  */
 package com.warehouse.dao;
 
+import com.warehouse.entity.User;
+import java.io.IOException;
+
 /**
  *
  * @author pawel_000
@@ -15,4 +18,8 @@ public interface UserDao {
     public String getUserNameById(int id);
     
     public String getUserRank(String login, String password);
+    
+    public void addUser(User user) throws IOException;
+    
+    public void deleteUser(User user) throws IOException;
 }
