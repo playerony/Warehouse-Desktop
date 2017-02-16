@@ -8,6 +8,7 @@ package com.warehouse.impl;
 import com.warehouse.dao.OrderDao;
 import com.warehouse.entity.Order;
 import com.warehouse.service.OrderService;
+import java.util.List;
 import org.hibernate.SessionFactory;
 
 /**
@@ -46,5 +47,10 @@ public class OrderDaoImpl implements OrderDao{
                 return o.getClient().getId();
         
         return -1;
+    }
+
+    @Override
+    public List<Order> getOrderList() {
+        return OrderService.list(sessionFactory);
     }
 }
