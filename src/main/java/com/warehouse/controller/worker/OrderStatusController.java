@@ -9,7 +9,6 @@ import com.warehouse.abstractController.OrderMenuAbstractController;
 import com.warehouse.abstractController.OrderMenuInterface;
 import com.warehouse.cookie.Cookie;
 import com.warehouse.dao.ItemDao;
-import com.warehouse.dao.OrderDao;
 import com.warehouse.entity.Order;
 import com.warehouse.entity.PalleteInfo;
 import com.warehouse.impl.ItemDaoImpl;
@@ -20,6 +19,7 @@ import com.warehouse.utility.AlertBox;
 import com.warehouse.utility.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -59,10 +59,10 @@ public class OrderStatusController extends OrderMenuAbstractController implement
     public TableColumn<OrderInformations, String> whenOrder;
     
     private ItemDao itemDao;
-    private OrderDao orderDao;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        init();
         initInstances();
         initTableView();
     }
@@ -105,7 +105,7 @@ public class OrderStatusController extends OrderMenuAbstractController implement
                     cm.setItemName(itemDao.getItemById(p.getId()).getName());
                     cm.setItemCode(itemDao.getItemById(p.getId()).getCode());
                     cm.setAmount(p.getAmount());
-                    cm.setWhenOrder(order.getDate().toString());
+                    cm.setWhenOrder(Validate.parseDate(order.getDate().toString()));
 
                     result.add(cm);
                 }
@@ -113,14 +113,18 @@ public class OrderStatusController extends OrderMenuAbstractController implement
                 throw new IOException("Order equals null");
             
             return result;
+        }catch (ParseException p) {
+            AlertBox.getInstance().display(getClass().getSimpleName(), "Problem by parsing date");
+            p.printStackTrace();
+            System.exit(0);
         }catch(GenericJDBCException c){
             AlertBox.getInstance().display(getClass().getSimpleName(), "Connection problem");
             c.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }catch (IOException e) {
             AlertBox.getInstance().display(getClass().getSimpleName(), "Some problems with getting info from db");
             e.printStackTrace();
-            System.exit(0);
+            System.exit(2);
         }
 
         return result;
@@ -147,7 +151,7 @@ public class OrderStatusController extends OrderMenuAbstractController implement
             stage.close();
             Cookie.getInstance().clear();
             
-            stage.setScene(new Scene(FXMLLoader.load(LoadFXML.getInstance().getPath("loginPanel"))));
+            LoadFXML.getInstance().loadFile("loginPanel");
         } catch (IOException e) {
             AlertBox.getInstance().display(getClass().getSimpleName(), "Some problems by loading loginPanel.fxml");
             e.printStackTrace();

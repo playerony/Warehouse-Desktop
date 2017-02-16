@@ -20,6 +20,7 @@ import com.warehouse.utility.AlertBox;
 import com.warehouse.utility.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -62,6 +63,7 @@ public class PickingMenuController extends OrderMenuAbstractController implement
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        init();
         initInstances();
         initTableView();
     }
@@ -117,7 +119,7 @@ public class PickingMenuController extends OrderMenuAbstractController implement
         }catch (IOException e) {
             AlertBox.getInstance().display(getClass().getSimpleName(), "Some problems with getting info from db");
             e.printStackTrace();
-            System.exit(0);
+            System.exit(1);
         }
 
         return result;
@@ -144,7 +146,7 @@ public class PickingMenuController extends OrderMenuAbstractController implement
             stage.close();
             Cookie.getInstance().clear();
             
-            stage.setScene(new Scene(FXMLLoader.load(LoadFXML.getInstance().getPath("loginPanel"))));
+            LoadFXML.getInstance().loadFile("loginPanel");
         } catch (IOException e) {
             AlertBox.getInstance().display(getClass().getSimpleName(), "Some problems by loading loginPanel.fxml");
             e.printStackTrace();
