@@ -8,6 +8,7 @@ package com.warehouse.impl;
 import com.warehouse.dao.UserDao;
 import com.warehouse.entity.User;
 import com.warehouse.service.UserService;
+import java.io.IOException;
 import org.hibernate.SessionFactory;
 
 /**
@@ -46,5 +47,15 @@ public class UserDaoImpl implements UserDao{
                 return u.getRank();
         
         return null;
+    }
+
+    @Override
+    public void addUser(User user) throws IOException{
+        UserService.insert(user, sessionFactory);
+    }
+
+    @Override
+    public void deleteUser(User user) throws IOException {
+        UserService.delete(user, sessionFactory);
     }
 }
