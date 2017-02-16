@@ -6,6 +6,7 @@
 package com.warehouse.dao;
 
 import com.warehouse.entity.Order;
+import java.util.List;
 import org.hibernate.exception.GenericJDBCException;
 
 /**
@@ -18,4 +19,6 @@ public interface OrderDao {
     public Order getOrderById(int id);
     
     public int getClientID(int id);
+    
+    public List<Order>getOrderList();
 }
