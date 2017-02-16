@@ -7,7 +7,11 @@ package com.warehouse.utility;
 
 import com.warehouse.entity.PalleteInfo;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,5 +81,15 @@ public class Validate {
         }
 		
         return result;
+    }
+    
+    public static String parseDate(String time) throws ParseException{
+        DateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date date = inputFormatter.parse(time);
+
+        DateFormat outputFormatter = new SimpleDateFormat("MM-dd-yyyy");
+        String output = outputFormatter.format(date);
+        
+        return output;
     }
 }
